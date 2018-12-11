@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="81dp"
+    android:id="@+id/container">
 
     <TextView
         android:id="@+id/tv_depart"
@@ -55,12 +56,12 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_arrive" />
 
     <Button
-        android:id="@+id/btn_calcul"
+        android:id="@+id/btn_recherche"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="101dp"
         android:layout_marginBottom="24dp"
-        android:text="Calcul"
+        android:text="recherche"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView" />
 
