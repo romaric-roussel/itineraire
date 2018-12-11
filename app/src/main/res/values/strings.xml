@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Itineraire</string>
+    <string name="header_kml">xml version="1.0" encoding="UTF-8"</string>
 </resources>

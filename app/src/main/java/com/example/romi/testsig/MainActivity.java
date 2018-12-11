@@ -38,8 +38,10 @@ public class MainActivity extends AppCompatActivity   {
 
     private List<GeoPoint> pointList;
     private List<GeoArc> arcList;
+    private LinkedList<GeoPoint> path;
 
     private Dao dao;
+
 
     private int depart,arrive;
 
@@ -94,21 +96,12 @@ public class MainActivity extends AppCompatActivity   {
             public void onClick(View v) {
                 DemandeDePermission();
 
-                Graphe graph = new Graphe(pointList, arcList);
-                Djikstra djikstra = new Djikstra(graph);
-                djikstra.execute(pointList.get(depart));
-                LinkedList<GeoPoint> path = djikstra.getPath(pointList.get(arrive));
-
                 if(path!= null){
                     for (GeoPoint point : path) {
                         tv.append(point.getGeo_poi_nom() + "=>");
                         System.out.print("oagoajogaj");
                     }
                 }
-
-
-
-
 
             }
         });
@@ -132,6 +125,43 @@ public class MainActivity extends AppCompatActivity   {
         }
         else
         {
+            Graphe graph = new Graphe(pointList, arcList);
+            Djikstra djikstra = new Djikstra(graph);
+            djikstra.execute(pointList.get(depart));
+            path = djikstra.getPath(pointList.get(arrive));
+
+            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"export.kml");
+            FileWriter fileWriter = null;
+            try {
+                fileWriter = new FileWriter(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                fileWriter.write("<?xml version='1.0' encoding='UTF-8'?>\n");
+                fileWriter.write("<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n");
+                if(path!= null){
+                    for (GeoPoint point : path) {
+                        fileWriter.write("<Placemark>\n");
+                        fileWriter.write("<name>" +point.getGeo_poi_nom()+ "</name>\n");
+                        fileWriter.write("<Point>\n" +
+                                "<coordinates>"+ point.getGeo_poi_latitude() +"," + point.getGeo_poi_longitude()
+                                +"</coordinates>\n" +
+                                "</Point>\n");
+                        fileWriter.write("</Placemark>\n");
+
+                    }
+                }
+
+                fileWriter.write("</kml>");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
     }
@@ -142,6 +172,11 @@ public class MainActivity extends AppCompatActivity   {
         {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
+                Graphe graph = new Graphe(pointList, arcList);
+                Djikstra djikstra = new Djikstra(graph);
+                djikstra.execute(pointList.get(depart));
+                path = djikstra.getPath(pointList.get(arrive));
+
                 File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"export.kml");
                 FileWriter fileWriter = null;
                 try {
@@ -150,7 +185,22 @@ public class MainActivity extends AppCompatActivity   {
                     e.printStackTrace();
                 }
                 try {
-                    fileWriter.write("toto");
+                    fileWriter.write("<?xml version='1.0' encoding='UTF-8'?>\n");
+                    fileWriter.write("<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n");
+                    if(path!= null){
+                        for (GeoPoint point : path) {
+                            fileWriter.write("<Placemark>\n");
+                            fileWriter.write("<name>" +point.getGeo_poi_nom()+ "</name>\n");
+                            fileWriter.write("<Point>\n" +
+                                    "<coordinates>"+ point.getGeo_poi_longitude() +"," + point.getGeo_poi_latitude()
+                                    +"</coordinates>\n" +
+                                    "</Point>\n");
+                            fileWriter.write("</Placemark>\n");
+
+                        }
+                    }
+
+                    fileWriter.write("</kml>");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
