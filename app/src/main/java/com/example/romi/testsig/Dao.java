@@ -104,6 +104,7 @@ public class Dao {
                     arc.setGeo_arc_distance(distance);
                     int sens = cursor.getInt(cursor.getColumnIndex(C.FieldARC.SENS));
                     arc.setGeo_arc_sens(sens);
+                    arcs.add(arc);
 
                 } while (cursor.moveToNext());
             }
