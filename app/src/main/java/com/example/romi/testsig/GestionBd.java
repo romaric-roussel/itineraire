@@ -1,46 +1,149 @@
-package com.example.lance.filmv5;
+package com.example.romi.testsig;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by lance on 03/02/2017.
  */
 
-public class GestionBDFIlm extends SQLiteOpenHelper {
+public class GestionBd extends SQLiteOpenHelper {
+
+    Integer[] geo_arc_id={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,
+            62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,
+            118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,
+            165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,
+            212,213,214,215,216,217,218,219,220,221,222,223,224,225};
+    List<Integer> list_arc_id = Arrays.asList(geo_arc_id);
+
+    Double[] geo_lat={0.0,46.210953,46.216393,46.218601,46.223392,46.221321,46.218506,46.215565,46.214268,46.212696,46.211655,46.210667,46.207497,46.20768,46.203621,46.202755,46.201694,46.200638,
+            46.200653,46.200401,46.1982,46.195892,46.193909,46.190197,46.188503,46.187672,46.185635,46.184502,46.186165,46.221333,46.218971,46.216934,46.215305,46.212948,46.209812,46.208794,
+            46.207352,46.207664,46.203312,46.199993,46.19685,46.195793,46.195553,46.195206,46.195248,46.194771,46.191654,46.190136,46.19075,46.191044,46.188297,46.186954,46.185036,46.186874,46.188313,
+            46.196495,46.197891,46.199207,46.199837,46.201221,46.20203,46.203156,46.204567,46.205353,46.205925,46.205925,46.207367,46.207783,46.203716,46.203197,46.200665,46.200123,46.197041,46.193378,
+            46.19194,46.19165,46.191376,46.18959,46.187458,46.185795,46.182858,46.18182,46.181587,46.181908,46.203674,46.202702,46.202087,46.199959,46.200256,46.20076,46.201183,46.202091,46.204227,
+            46.202126,46.200047,46.201694,46.202621,46.203632,46.207573,46.207378,46.208813,46.207527,46.209862,46.207668,46.20723,46.20808,46.211246,46.211239,46.211567,46.211578,46.20779,46.20776,
+            46.205956,46.175201,46.197029,46.199467,46.198917,46.196629,46.194595,46.193451,46.193138,46.195782,46.197803,46.200771,46.200802,46.200268,46.199955,46.20208,46.202702,46.203606,46.207771,
+            46.209789,46.213707,46.213615,46.21431,46.215771,46.22324,46.222095,46.219364,46.22448,46.221844,46.218967,46.215298,46.217022,46.214691,46.212566,46.21175,46.210995,46.207474,46.207951,
+            46.207607,46.207668,46.20673,46.2048,46.20307,46.201565,46.188065,46.189579,46.192307,46.191391,46.191147,46.191181,46.196396,46.197975,46.198441,46.199596,46.202534,46.205444,46.207775,
+            46.211315,46.214512,46.219238,46.220993,46.223347,46.227,46.23558,46.232285,46.23521,46.243053,46.243973,46.246063,46.248245,46.250381,46.252495,46.255043,46.253296,46.252174,46.207344,
+            46.20787,46.209015,46.210884,46.213093,46.215099,46.21891,46.218559,46.221535,46.22562,46.227161,46.227695,46.227749,46.228367,46.232285,46.23521,46.243053,46.243973,46.246063,46.248245,
+            46.250381,46.252495,46.255043,46.253296,46.252174,46.199829,46.196808,46.195835,46.195503,46.195251,46.194962,46.197739,46.196621,46.207455,46.207661,46.203571,46.201653,46.201527,46.189697};
+    List<Double> list_lat = Arrays.asList(geo_lat);
+
+    Double[] geo_lon={0.0,5.241573,5.239347,5.235753,5.234127,5.23448,5.233815,5.233917,5.234539,5.230887,5.230072,2.230115,5.227554,5.220464,5.218618,5.2182,5.215044,5.218574,5.220666,5.225301,
+            5.225723,5.225383,5.225011,5.226242,5.226944,5.224562,5.226609,5.227006,5.228948,5.244226,5.249265,5.24712,5.243917,5.24152,5.238424,5.233722,5.227682,5.220491,5.218699,5.215577,
+            5.216403,5.220288,5.22291,5.226573,5.22922,5.22987,5.232552,5.233505,5.235901,5.238986,5.237361,5.236998,5.239324,5.241676,5.24579,5.265224,5.260663,5.256668,5.254592,5.250374,5.247498
+            ,5.24388	,5.239231,5.236716,5.233196,5.231823,5.227926,5.220609,5.218759,5.221935,5.218843,5.21551,5.216368,5.213548,5.211676,5.208737,5.206988,5.209386,5.209053,5.207905,5.205533,
+            5.205233,5.206504,5.209272,5.195694,5.191838,5.189797,5.190737,5.193863,5.199289,5.203435,5.207386,5.209121,5.212194,5.215529,5.215044,5.217645,5.218682,5.220401,5.228174,5.233699,5.234411,
+            5.238305,5.241136,5.241951,5.243783,5.244153,5.247139,5.253822,5.256784,5.258761,5.265469,5.270505,5.216323,5.214756,5.213662,5.210508,5.210443,5.209993,5.207632,5.204371,5.203512,5.203427,
+            5.202611,5.199221,5.193878,5.190852,5.189844,5.191882,5.195466,5.197774,5.198032,5.197386,5.200893,5.206222,5.206833,5.204423,5.204777,5.209543,5.211088,5.209167,5.211906,5.214846,5.218751,
+            5.220983,5.221682,5.224429,5.22754,5.22769,5.224472,5.219664,5.216016,5.213312,5.213892,5.21505,5.215082,5.255255,5.248147,5.25656,5.248785,5.243612,5.241868,5.236549,5.235149,5.234778,
+            5.233809,5.231367,5.229032,5.227575,5.227501,5.22745,5.22787,5.226763,5.222464,5.22828,5.228396,5.229429,5.228447,5.224529,5.219865,5.218847,5.218917,5.218496,5.21698,5.217155,5.215927,
+            5.211509,5.2276	,5.224697,5.220419,5.218691,5.216747,5.214553,5.211882,5.214963,5.216127,5.217268,5.218917,5.223305,5.228569,5.229517,5.229429,5.228447,5.224529,5.219865,5.218847,5.218917,
+            5.218496,5.21698,5.217155,5.215927,5.211509,5.21354,5.214783,5.220061,5.223634,5.228462,5.234234,5.24012,5.24781,5.227743,5.220326,5.218689,5.215057,5.22928,5.216365};
+    List<Double> list_lon = Arrays.asList(geo_lon);
+
+    String[] geo_stations={"null","Revermont","Granges Bardes","Grand Challes","Oyards","Granges Rollet","Tilleuls","Chevrier","Cimetière","Schuman","Dunant","Jean Moulin","Carré Amiot",
+            "Charité Université","Quinconces","Observatoire","Victoire Gare","Baudin","Voltaire","Labalme","Bourg-Lycée","Plein Soleil","St Rock","La Bruyère","Vennes","Rousseau","Chartreuse",
+            "Verlaine","Seillon CFA","Norélan","Plan","Parme","Alimentec","Gendarmerie","Centre Nautique","Europe","Carré Amiot","Charité Université","Quinconces","Sémard Gare","Sémard Jaurès","Ferry",
+            "Crouy","Plein Soleil","Valéry","Collège Riboud","Stand","Molière","Aéroplanes","Petites Vennes","Vennes Stade","Butte","Ormeaux","Ainterexpo","Alagnier","Mistral","Curtafray","Loëze",
+            "Pennessuy","Picasso","Abbé Gringoz","Croix Blanche","Baudière","Jura","Maquis","Robin","Carré Amiot","Charité Université","Quinconces","Préfecture","Baudin","Sémard Gare","Sémard Jaurès",
+            "Berthelot","Girod de l'Ain","Bauvard","Côtes","Pagneux","Grandes Bonnet","Tyrandes","Bellevue","Péronnas Mairie","Chênaie","Vieux Chêne","St Denis Collège","St Denis Centre",
+            "St Denis Mairie","Flèches","Grange Maman","Fruitière","Printemps","Petit Montholon","Lilas","Mail","Sémard Gare","Victoire Gare","Observatoire","Quinconces","Charité Université",
+            "Carré Amiot","Joliot Curie","Centre Nautique","Pré Neuf","Dimes","Petit Challes","Revermont","Beau Site","Clinique Convert","Lycée Agricole","Dévorah","Stade Deguin","EREA La Chagne",
+            "Sémard Gare","Sémard Jaurès","Peloux","Peloux Gare","Clos","Teyssonière","Montholon","Roland Garros","Pascal","Bouvreuils","Vivaldi","Charpine","Fruitière","Grange Maman","Flèches",
+            "St Denis Mairie","St Denis Centre","St Denis Collège","Chalandré","Semailles","Cadalles","Ourres","Calidon","Leclanché","Chambière Nord","Chambière Hotel","Gay-Lussac","Hopital Fleyriat",
+            "Vareys","Fort","Neuve","Boule","Seguin","Pont des chèvres","Blanchisseries","Moulin de Rozières","Carré Amiot","Vicaire","Charité Université","Jarrin","Voisin","Mas","Citadelle",
+            "Victoire Gare","Ainterexpo","Girolles","Bouvent Plage","Narcisses","Platanes","Charmettes","Ferret","Monastère de Brou","Graves","Hôtel Dieu","Fontanettes","Bons Enfants","Carré Amiot",
+            "Moulin de Rozières","Canal","Cuvier","Miche","Dépôt TUB","Marboz","CPA","Castel","Perrinche","Feuilles Vertes","Viriat Vernée","Champagne","Gelière	","Château","Jayr","Viriat Mairie",
+            "Viriat Écoles","VIRIAT Caronniers","Carré Amiot","Vicaire","Schweitzer","Mâcon","Parc","Neuve","Fort","Ecluses","Valvert","Liavoles","Majornas","Arago","Buidon","CPA","Castel","Perrinche",
+            "Feuilles Vertes","Viriat Vernée","Champagne","Gelière","Château","Jayr","Viriat Mairie","Viriat Écoles","VIRIAT Caronniers","Peloux Gare","Peloux","Ferry","Crouy","Valéry","Arbelles",
+            "Providence","Sources","Carré Amiot","Charité Université","Quinconces","Victoire Gare","Sémard Gare","Sémard Jaurès"};
+
+    List<String> list_station = Arrays.asList(geo_stations);
+
+    Integer[] partitions ={0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,
+            4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
+            6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,21,21,21,21,21,21,21,21,0,0,0,0,0,0};
+    List<Integer> liste_partition = Arrays.asList(partitions);
 
 
-    Integer[] idPoint = {1,2,3,6,6,4,8,8,9,7};
+    Integer[] geo_point_id ={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,
+            57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,
+            114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,
+            161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,
+            208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,
+            255,256,257,258,259,260,261,262,263,264,265,266};
+    List<Integer> liste_point_id = Arrays.asList(geo_point_id);
+
+
+    Integer[] geo_debut={0,218,217,216,215,214,213,212,210,209,208,207,206,205,204,203,202,201,200,199,198,197,196,195,194,193,192,191,190,189,188,187,185,184,183,182,181,180,179,178,177,176,175,174,
+            173,172,171,170,169,168,167,166,165,164,163,162,161,160,159,158,157,156,154,153,152,151,150,149,148,147,146,145,144,143,142,141,140,139,138,137,136,135,134,133,132,131,130,129,128,127,126,
+            125,124,123,122,121,120,119,118,117,116,115,114,113,112,110,109,108,107,106,105,104,103,102,101,100,99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,84,82,81,80,79,78,77,76,75,74,73,72,71,70,
+            69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,54,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,
+            2,1,1,220,221,222,17,21,34,220,221,222,224,225,41,42,44,53,220,221,222,224,225,84,85,86,87,88,89,224,222,221,220,224,225,114,115,141,142,147,220,149,221,220,175,176,177,178,179,180,181,182,
+            183,184,185,186,220};
+    List<Integer> liste_debut = Arrays.asList(geo_debut);
+
+    Integer[] geo_fin={0,219,218,217,216,215,214,213,211,210,209,208,207,206,205,204,203,202,201,200,199,198,197,196,195,194,193,192,191,190,189,188,186,185,184,183,182,181,180,179,178,177,176,175,
+            174,173,172,171,170,169,168,167,166,165,164,163,162,161,160,159,158,157,155,154,153,152,151,150,149,148,147,146,145,144,143,142,141,140,139,138,137,136,135,134,133,132,131,130,129,128,127,
+            126,125,124,123,122,121,120,119,118,117,116,115,114,113,111,110,109,108,107,106,105,104,103,102,101,100,99,98,97,96,95,94,93,92,91,90,89,88,87,86,85,83,82,81,80,79,78,77,76,75,74,73,72,71,
+            70,69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,53,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9	,8,7,6,5,
+            4,3,2,105,12,13,14,70,43,101,36,37,38,39,40,214,215,216,156,66,67,68,71,72,129,128,127,126,125,124,94,97,98,99,112,113,213,212,193,192,169,148,188,150,168,200,201,202,203,204,205,206,207,
+            208,209,210,211,187};
+    List<Integer> liste_fin = Arrays.asList(geo_fin);
+
+    Double[] geo_arc_temps={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,
+            1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,
+            1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,
+            1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,
+            1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,
+            0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5};
+    List<Double> liste_temp = Arrays.asList(geo_arc_temps);
+
+    Double[] arc_distance={1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,
+            1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,
+            1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,
+            1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,
+            1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,
+            0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5};
+    List<Double> liste_distance = Arrays.asList(arc_distance);
+
+    Integer[] geo_arc_sens={3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+            ,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3};
+    List<Integer> liste_sens = Arrays.asList(geo_arc_sens);
 
 
 
+    public static final String CREATION_TABLE_GEO_POINT =
+            "CREATE TABLE " + C.Table.POINT + " ( "
+                    + C.FieldPOINT.ID + " INTEGER PRIMARY KEY , "
+                    + C.FieldPOINT.LATITUDE + " DOUBLE, "
+                    + C.FieldPOINT.LONGTITUDE + " DOUBLE, "
+                    + C.FieldPOINT.NOM + " TEXT, "
+                    + C.FieldPOINT.PARTITION + " INTEGER );";
 
-    /**
-     * Requette de creation de la table film
-     */
-    public static final String CREATION_TABLE_FILM =
-            "CREATE TABLE " + C.Table.FILM + " ( "
-                    + C.Field.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + C.Field.TITRE + " TEXT, "
-                    + C.Field.ANNEE + " INTEGER, "
-                    + C.Field.NOTE + " INTEGER, "
-                    + C.Field.IMAGE + " TEXT, "
-                    + C.Field.RESUMER + " TEXT, "
-                    + C.Field.COMENTAIRE + " TEXT, "
-                    + C.Field.ACTEUR1 + " TEXT, "
-                    + C.Field.ACTEUR2 + " TEXT, "
-                    + C.Field.ACTEUR3 + " TEXT, "
-                    + C.Field.ACTEUR4 + " TEXT, "
-                    + C.Field.ACTEUR5 + " TEXT, "
-                    + C.Field.VU + " INTEGER );";
+    public static final String CREATION_TABLE_GEO_ARC =
+            "CREATE TABLE " + C.Table.ARC + " ( "
+                    + C.FieldARC.ID + " INTEGER PRIMARY KEY , "
+                    + C.FieldARC.DEB + " INTEGER, "
+                    + C.FieldARC.FIN + " INTEGER, "
+                    + C.FieldARC.TEMPS + " DOUBLE, "
+                    + C.FieldARC.DISTANCE + " DOUBLE, "
+                    + C.FieldARC.SENS + " INTEGER );";
 
-    /**
-     * Requette de suppréssion de la table film
-     */
-    public static final String SUPPRIMER_TABLE_FILM =
-        "DROP TABLE IF EXISTS " + C.Table.FILM + " ;";
+
+    public static final String SUPPRIMER_TABLE_POINT =
+        "DROP TABLE IF EXISTS " + C.Table.POINT + " ;";
+
+    public static final String SUPPRIMER_TABLE_ARC =
+            "DROP TABLE IF EXISTS " + C.Table.ARC + " ;";
 
 
 
@@ -51,151 +154,45 @@ public class GestionBDFIlm extends SQLiteOpenHelper {
      * @param factory   une fabrique de curseur ou le plus souvent null
      * @param version   Numéro de version du shéma de la base de données
      */
-    public GestionBDFIlm(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public GestionBd(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL(CREATION_TABLE_FILM);
-        ContentValues enregistrement = new ContentValues();
+        db.execSQL(CREATION_TABLE_GEO_POINT);
+        ContentValues point = new ContentValues();
 
-        //sta wars 1
-        enregistrement.put(C.Field.TITRE, "Star Wars: Episode 1 - La menace fantôme");
-        enregistrement.put(C.Field.ANNEE, 1999);
-        enregistrement.put(C.Field.NOTE, 5);
-        enregistrement.put(C.Field.IMAGE, "https://images-na.ssl-images-amazon.com/images/M/MV5BM2FmZGIwMzAtZTBkMS00M2JiLTk2MDctM2FlNTQ2OWYwZDZkXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SY1000_CR0,0,666,1000_AL_.jpg");
-        enregistrement.put(C.Field.RESUMER, "Jar Jar Binks il marche dans le caca lol sa fait rire, Dark Maul un ange parti trop tot mdrrr, LA COURSE DE POD !!!");
-        enregistrement.put(C.Field.COMENTAIRE, "Jar Jar Binks confirmed Snoke, reddit approuved");
-        enregistrement.put(C.Field.ACTEUR1, "Jar Jar Binks");
-        enregistrement.put(C.Field.ACTEUR2, "Le gosse chiant");
-        enregistrement.put(C.Field.ACTEUR3, "Sebulba");
-        enregistrement.put(C.Field.ACTEUR4, "C3-PO a poil");
-        enregistrement.put(C.Field.ACTEUR5, "R2-D2 en mode badass");
-        enregistrement.put(C.Field.VU, 0);
-        db.insert(C.Table.FILM,C.Field.TITRE, enregistrement);
+        for(int i=0; i<liste_point_id.size();i++){
+            point.put(C.FieldPOINT.ID, liste_point_id.get(i));
+            point.put(C.FieldPOINT.LATITUDE, list_lat.get(i));
+            point.put(C.FieldPOINT.LONGTITUDE, list_lon.get(i));
+            point.put(C.FieldPOINT.NOM, list_station.get(i));
+            point.put(C.FieldPOINT.PARTITION, liste_partition.get(i));
+            db.insert(C.Table.POINT,C.FieldPOINT.ID, point);
+        }
 
+        db.execSQL(CREATION_TABLE_GEO_ARC);
+        ContentValues arc = new ContentValues();
 
-
-
-        //stars wars 2
-        enregistrement.put(C.Field.TITRE, "Star Wars: Episode 2 - L'attaque des clones");
-        enregistrement.put(C.Field.ANNEE, 2002);
-        enregistrement.put(C.Field.NOTE, 5);
-        enregistrement.put(C.Field.IMAGE, "https://images-na.ssl-images-amazon.com/images/M/MV5BNDRkYzA4OGYtOTBjYy00YzFiLThhYmYtMWUzMDBmMmZkM2M3XkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SY1000_CR0,0,752,1000_AL_.jpg");
-        enregistrement.put(C.Field.RESUMER, "Dooku il casse le cul de Anakin le fragile, apres sa fait des combats de Force genre un manga");
-        enregistrement.put(C.Field.COMENTAIRE, "Rip Jango Feet");
-        enregistrement.put(C.Field.ACTEUR1, "Jar Jar Binks");
-        enregistrement.put(C.Field.ACTEUR2, "Devlin le long cou");
-        enregistrement.put(C.Field.ACTEUR3, "Des pokemons");
-        enregistrement.put(C.Field.ACTEUR4, "Natalie Bonne'man");
-        enregistrement.put(C.Field.ACTEUR5, "Le gros dans le bar");
-        enregistrement.put(C.Field.VU, 0);
-        db.insert(C.Table.FILM,C.Field.TITRE, enregistrement);
-
-
-
-        //star wars 3
-        enregistrement.put(C.Field.TITRE, "Star Wars: Episode 3 - La revanche des Sith");
-        enregistrement.put(C.Field.ANNEE, 2005);
-        enregistrement.put(C.Field.NOTE, 5);
-        enregistrement.put(C.Field.IMAGE, "https://images-na.ssl-images-amazon.com/images/M/MV5BNTc4MTc3NTQ5OF5BMl5BanBnXkFtZTcwOTg0NjI4NA@@._V1_SY1000_SX750_AL_.jpg");
-        enregistrement.put(C.Field.RESUMER, "Dooku il se fait casser le cul par Anakin le dark boy, RIP in peace Mace Windu, I am the Senate!, AUTISTIC SCREECHING, Obi Wan il coupe les jambes du fragile lol");
-        enregistrement.put(C.Field.COMENTAIRE, "Les combats c'est le cirque Pinder en scred loule'");
-        enregistrement.put(C.Field.ACTEUR1, "Jar Jar Binks");
-        enregistrement.put(C.Field.ACTEUR2, "Le senat");
-        enregistrement.put(C.Field.ACTEUR3, "Le clone qui meurt en fond pendant la bataille de Kashyyyk");
-        enregistrement.put(C.Field.ACTEUR4, "RIP Natalie Bonne'man");
-        enregistrement.put(C.Field.ACTEUR5, "Les petit jedi RIP");
-        enregistrement.put(C.Field.VU, 0);
-        db.insert(C.Table.FILM,C.Field.TITRE, enregistrement);
-
-
-        //star wars rogue one
-        enregistrement.put(C.Field.TITRE, "Rogue One: A Star Wars Story");
-        enregistrement.put(C.Field.ANNEE, 2016);
-        enregistrement.put(C.Field.NOTE, 5);
-        enregistrement.put(C.Field.IMAGE, "https://images-na.ssl-images-amazon.com/images/M/MV5BMjEwMzMxODIzOV5BMl5BanBnXkFtZTgwNzg3OTAzMDI@._V1_SY1000_SX675_AL_.jpg");
-        enregistrement.put(C.Field.RESUMER, "DARK VADOR A LA FIN SA MERE LA PUTE");
-        enregistrement.put(C.Field.COMENTAIRE, "DARK VADOR");
-        enregistrement.put(C.Field.ACTEUR1, "Jar Jar Binks");
-        enregistrement.put(C.Field.ACTEUR2, "DARK VADOR");
-        enregistrement.put(C.Field.ACTEUR3, "DARK VADOR");
-        enregistrement.put(C.Field.ACTEUR4, "DARK VADOR");
-        enregistrement.put(C.Field.ACTEUR5, "DARK VADOR");
-        enregistrement.put(C.Field.VU, 0);
-        db.insert(C.Table.FILM,C.Field.TITRE, enregistrement);
-
-
-        //star wars4
-        enregistrement.put(C.Field.TITRE, "Star Wars: Episode 4 - Un nouvel espoir");
-        enregistrement.put(C.Field.ANNEE, 1977);
-        enregistrement.put(C.Field.NOTE, 5);
-        enregistrement.put(C.Field.IMAGE, "https://images-na.ssl-images-amazon.com/images/M/MV5BZGEzZTExMDEtNjg4OC00NjQxLTk5NTUtNjRkNjA3MmYwZjg1XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY1000_CR0,0,633,1000_AL_.jpg");
-        enregistrement.put(C.Field.RESUMER, "Luke au debut c'est un gamin enfaite lmao, apres il sauve un gadji et apres il detruit un station spatiale de la taille de la lune en moins de 3 jours");
-        enregistrement.put(C.Field.COMENTAIRE, "Rip Alderaan");
-        enregistrement.put(C.Field.ACTEUR1, "Jar Jar Binks");
-        enregistrement.put(C.Field.ACTEUR2, "Chictaba");
-        enregistrement.put(C.Field.ACTEUR3, "Yan Solo");
-        enregistrement.put(C.Field.ACTEUR4, "Le millenium condor");
-        enregistrement.put(C.Field.ACTEUR5, "Greedo");
-        enregistrement.put(C.Field.VU, 0);
-        db.insert(C.Table.FILM,C.Field.TITRE, enregistrement);
-
-
-        //star wars 5
-        enregistrement.put(C.Field.TITRE, "Star Wars: Episode 5 - L'empire contre-attaque");
-        enregistrement.put(C.Field.ANNEE, 1980);
-        enregistrement.put(C.Field.NOTE, 5);
-        enregistrement.put(C.Field.IMAGE, "https://images-na.ssl-images-amazon.com/images/M/MV5BYmViY2M2MTYtY2MzOS00YjQ1LWIzYmEtOTBiNjhlMGM0NjZjXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SY1000_CR0,0,644,1000_AL_.jpg");
-        enregistrement.put(C.Field.RESUMER, "LA BTAILLE DE HOTH SA MERE, LES AT-AT !!!!!! RIP le genre de chameau du froid, Je suis ton père lol, la cité des nuages avec Lando en scred c'est pas un gentil");
-        enregistrement.put(C.Field.COMENTAIRE, "A moi, a moi !!!!");
-        enregistrement.put(C.Field.ACTEUR1, "Jar Jar Binks");
-        enregistrement.put(C.Field.ACTEUR2, "Yoda dans les marais");
-        enregistrement.put(C.Field.ACTEUR3, "Le daron de Luke");
-        enregistrement.put(C.Field.ACTEUR4, "Le gros vers de terre");
-        enregistrement.put(C.Field.ACTEUR5, "Greedo");
-        enregistrement.put(C.Field.VU, 0);
-        db.insert(C.Table.FILM,C.Field.TITRE, enregistrement);
-
-        //star wars 6
-        enregistrement.put(C.Field.TITRE, "Star Wars: Episode 6 - Le retour du Jedi");
-        enregistrement.put(C.Field.ANNEE, 1893);
-        enregistrement.put(C.Field.NOTE, 5);
-        enregistrement.put(C.Field.IMAGE, "https://images-na.ssl-images-amazon.com/images/M/MV5BODllZjg2YjUtNWEzNy00ZGY2LTgyZmQtYTkxNDYyOWM3OTUyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY1000_CR0,0,637,1000_AL_.jpg");
-        enregistrement.put(C.Field.RESUMER, "Les ewoks y croivent que C3-Po c'est un dieu lul, sa construit une deuxieme Etoile de la Mort pour faire genre mais sa marche pas");
-        enregistrement.put(C.Field.COMENTAIRE, "Les motos dans la foret");
-        enregistrement.put(C.Field.ACTEUR1, "Jar Jar Binks");
-        enregistrement.put(C.Field.ACTEUR2, "L'ewok qui jette les cailloux");
-        enregistrement.put(C.Field.ACTEUR3, "L'autre ewok qui jette les cailloux");
-        enregistrement.put(C.Field.ACTEUR4, "L'ewok qui ramasse les cailloux");
-        enregistrement.put(C.Field.ACTEUR5, "L'autre ewok qui ramsse les cailloux");
-        enregistrement.put(C.Field.VU,0);
-        db.insert(C.Table.FILM,C.Field.TITRE, enregistrement);
-
-
-        //star wars 7
-        enregistrement.put(C.Field.TITRE, "Star Wars: Episode 7 - Le reveil de la Force");
-        enregistrement.put(C.Field.ANNEE, 2015);
-        enregistrement.put(C.Field.NOTE, 4);
-        enregistrement.put(C.Field.IMAGE, "https://images-na.ssl-images-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SY1000_CR0,0,677,1000_AL_.jpg");
-        enregistrement.put(C.Field.RESUMER, "Sa construit un troisieme Etoile de la Mort mais sa marche toujours pas, le sabre de Kylo Ren il top cool quand même");
-        enregistrement.put(C.Field.COMENTAIRE, "Rip Yan Solo");
-        enregistrement.put(C.Field.ACTEUR1, "Jar Jar Binks");
-        enregistrement.put(C.Field.ACTEUR2, "Blu-Rey");
-        enregistrement.put(C.Field.ACTEUR3, "Chictaba en mode furax");
-        enregistrement.put(C.Field.ACTEUR4, "Luke il parle trop");
-        enregistrement.put(C.Field.ACTEUR5, "Dark Vador en mode barbecue");
-        enregistrement.put(C.Field.VU, 0);
-        db.insert(C.Table.FILM,C.Field.TITRE, enregistrement);
+        for(int i=0; i<liste_point_id.size();i++){
+            arc.put(C.FieldARC.ID, list_arc_id.get(i));
+            arc.put(C.FieldARC.DEB, liste_debut.get(i));
+            arc.put(C.FieldARC.FIN, liste_fin.get(i));
+            arc.put(C.FieldARC.TEMPS, liste_temp.get(i));
+            arc.put(C.FieldARC.DISTANCE, liste_distance.get(i));
+            arc.put(C.FieldARC.SENS, liste_sens.get(i));
+            db.insert(C.Table.ARC,C.FieldARC.ID, arc);
+        }
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL(GestionBDFIlm.SUPPRIMER_TABLE_FILM);
+        db.execSQL(GestionBd.SUPPRIMER_TABLE_POINT);
+        db.execSQL(GestionBd.SUPPRIMER_TABLE_ARC);
         onCreate(db);
 
     }
