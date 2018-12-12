@@ -25,6 +25,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,8 +43,6 @@ public class MainActivity extends AppCompatActivity   {
 
     private Dao dao;
 
-
-    private int depart,arrive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,23 +70,23 @@ public class MainActivity extends AppCompatActivity   {
         sp_deb.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                depart = sp_deb.getSelectedItemPosition();
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                depart = 1;
+
             }
         });
        sp_fin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
            @Override
            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               arrive = sp_fin.getSelectedItemPosition();
+
            }
 
            @Override
            public void onNothingSelected(AdapterView<?> parent) {
-                arrive = 2;
+
            }
        });
 
@@ -95,14 +94,6 @@ public class MainActivity extends AppCompatActivity   {
             @Override
             public void onClick(View v) {
                 DemandeDePermission();
-
-                if(path!= null){
-                    for (GeoPoint point : path) {
-                        tv.append(point.getGeo_poi_nom() + "=>");
-                        System.out.print("oagoajogaj");
-                    }
-                }
-
             }
         });
 
@@ -126,9 +117,7 @@ public class MainActivity extends AppCompatActivity   {
         else
         {
             Graphe graph = new Graphe(pointList, arcList);
-            Djikstra djikstra = new Djikstra(graph);
-            djikstra.execute(pointList.get(depart));
-            path = djikstra.getPath(pointList.get(arrive));
+            execDjisktra(graph);
 
             File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"export.kml");
             FileWriter fileWriter = null;
@@ -138,22 +127,32 @@ public class MainActivity extends AppCompatActivity   {
                 e.printStackTrace();
             }
             try {
-                fileWriter.write("<?xml version='1.0' encoding='UTF-8'?>\n");
-                fileWriter.write("<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n");
+
                 if(path!= null){
+                    fileWriter.write("<?xml version='1.0' encoding='UTF-8'?>\n");
+                    fileWriter.write("<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n");
+                    fileWriter.write("<Document>\n" + "<Folder>\n" + "<name>Arret de bus</name>\n");
+
                     for (GeoPoint point : path) {
                         fileWriter.write("<Placemark>\n");
                         fileWriter.write("<name>" +point.getGeo_poi_nom()+ "</name>\n");
                         fileWriter.write("<Point>\n" +
-                                "<coordinates>"+ point.getGeo_poi_latitude() +"," + point.getGeo_poi_longitude()
+                                "<coordinates>"+ point.getGeo_poi_longitude() +"," + point.getGeo_poi_latitude()
                                 +"</coordinates>\n" +
                                 "</Point>\n");
                         fileWriter.write("</Placemark>\n");
 
                     }
+                    fileWriter.write( "<Placemark>\n");
+                    fileWriter.write( "<name>Itineraire</name>\n" + "<LineString>\n" + "<coordinates>\n");
+                    for (GeoPoint point : path) {
+                        fileWriter.write(point.getGeo_poi_longitude() +"," + point.getGeo_poi_latitude()+"\n");
+                    }
+                    fileWriter.write("</coordinates>\n" + "</LineString>\n"+"</Placemark>\n");
+                    fileWriter.write("</Folder>\n" + "</Document>\n"+"</kml>");
                 }
 
-                fileWriter.write("</kml>");
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -165,6 +164,34 @@ public class MainActivity extends AppCompatActivity   {
 
         }
     }
+
+    private void execDjisktra(Graphe graphe){
+        Djikstra djikstra = new Djikstra(graphe);
+        djikstra.execute(pointList.get(sp_deb.getSelectedItemPosition()));
+        path = djikstra.getPath(pointList.get(sp_fin.getSelectedItemPosition()));
+        if(path!= null){
+            StringBuilder stringBuilder = new StringBuilder();
+            for (GeoPoint point : path) {
+               stringBuilder.append(point.getGeo_poi_nom()).append("\n");
+
+            }
+            tv.setText(stringBuilder);
+        }
+        if (path== null){
+            djikstra.execute(pointList.get(sp_fin.getSelectedItemPosition()));
+            path = djikstra.getPath(pointList.get(sp_deb.getSelectedItemPosition()));
+            if(path!=null){
+                Collections.reverse(path);
+                StringBuilder stringBuilder = new StringBuilder();
+                for (GeoPoint point : path) {
+                    stringBuilder.append(point.getGeo_poi_nom()).append("\n");
+
+                }
+                tv.setText(stringBuilder);
+            } else{
+                Snackbar.make(findViewById(android.R.id.content), "Aucun chemin", Snackbar.LENGTH_SHORT).show();}
+        }
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
     {
@@ -173,9 +200,7 @@ public class MainActivity extends AppCompatActivity   {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
                 Graphe graph = new Graphe(pointList, arcList);
-                Djikstra djikstra = new Djikstra(graph);
-                djikstra.execute(pointList.get(depart));
-                path = djikstra.getPath(pointList.get(arrive));
+                execDjisktra(graph);
 
                 File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"export.kml");
                 FileWriter fileWriter = null;
@@ -185,9 +210,12 @@ public class MainActivity extends AppCompatActivity   {
                     e.printStackTrace();
                 }
                 try {
-                    fileWriter.write("<?xml version='1.0' encoding='UTF-8'?>\n");
-                    fileWriter.write("<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n");
+
                     if(path!= null){
+                        fileWriter.write("<?xml version='1.0' encoding='UTF-8'?>\n");
+                        fileWriter.write("<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n");
+                        fileWriter.write("<Document>\n" + "<Folder>\n" + "<name>Arret de bus</name>\n");
+
                         for (GeoPoint point : path) {
                             fileWriter.write("<Placemark>\n");
                             fileWriter.write("<name>" +point.getGeo_poi_nom()+ "</name>\n");
@@ -198,9 +226,16 @@ public class MainActivity extends AppCompatActivity   {
                             fileWriter.write("</Placemark>\n");
 
                         }
+                        fileWriter.write( "<Placemark>\n");
+                        fileWriter.write( "<name>Itineraire</name>\n" + "<LineString>\n" + "<coordinates>\n");
+                        for (GeoPoint point : path) {
+                            fileWriter.write(point.getGeo_poi_longitude() +"," + point.getGeo_poi_latitude()+"\n");
+                        }
+                        fileWriter.write("</coordinates>\n" + "</LineString>\n"+"</Placemark>\n");
+                        fileWriter.write("</Folder>\n" + "</Document>\n"+"</kml>");
                     }
 
-                    fileWriter.write("</kml>");
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
