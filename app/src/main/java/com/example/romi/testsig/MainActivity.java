@@ -25,9 +25,14 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.log;
+import static java.lang.Math.sin;
 
 
 public class MainActivity extends AppCompatActivity   {
@@ -61,6 +66,7 @@ public class MainActivity extends AppCompatActivity   {
 
         pointList = dao.getAllPoint();
         arcList = dao.getAllArc();
+
 
 
 
@@ -99,6 +105,31 @@ public class MainActivity extends AppCompatActivity   {
 
 
     }
+    private static List<Double> convertDegToLamb(double lat,double lon){
+        List<Double> lamb = new ArrayList<>();
+        double n=0.7289686274;
+        double C=11745793.39;
+        double e=0.08248325676;
+        double Xs=600000;
+        double Ys=8199695.768;
+
+        double GAMMA0 =(3600*2)+(60*20)+14.025;
+        GAMMA0 = GAMMA0/(180*3600)*Math.PI;
+        double lati =lat/180*Math.PI;
+        double longi =lon/180*Math.PI;
+        double L=0.5* log((1+sin(lati))/(1-sin(lati)))-e/2*log((1+e*sin(lati))/(1-e*sin(lati)));
+        double R=C*Math.exp(-n*L);
+        double GAMMA=n*(longi-GAMMA0);
+
+        double Lx=Xs+(R*sin(GAMMA));
+        double  Ly=Ys-(R*cos(GAMMA));
+
+        lamb.add(Lx);
+        lamb.add(Ly);
+
+        return lamb;
+    }
+
 
     private  void DemandeDePermission(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
