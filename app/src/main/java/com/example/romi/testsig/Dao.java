@@ -11,6 +11,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.log;
+import static java.lang.Math.sin;
+
 /**
  * Created by lance on 06/02/2017.
  */
@@ -35,6 +39,36 @@ public class Dao {
 
     public void close() {
         dbHelper.close();
+    }
+
+    private static List<Double> convertDegToLamb(double lat,double lon){
+        List<Double> lamb = new ArrayList<>();
+        double n=0.7289686274;
+        double C=11745793.39;
+        double e=0.08248325676;
+        double Xs=600000;
+        double Ys=8199695.768;
+
+        double GAMMA0 =(3600*2)+(60*20)+14.025;
+        GAMMA0 = GAMMA0/(180*3600)*Math.PI;
+        double lati =lat/180*Math.PI;
+        double longi =lon/180*Math.PI;
+        double L=0.5* log((1+sin(lati))/(1-sin(lati)))-e/2*log((1+e*sin(lati))/(1-e*sin(lati)));
+        double R=C*Math.exp(-n*L);
+        double GAMMA=n*(longi-GAMMA0);
+
+        double Lx=Xs+(R*sin(GAMMA));
+        double  Ly=Ys-(R*cos(GAMMA));
+
+        lamb.add(Lx);
+        lamb.add(Ly);
+
+        return lamb;
+    }
+    public static double distancePoint(double xa,double ya,double xb,double yb){
+
+        double distance = Math.sqrt(Math.pow(xb-xa,2)+ Math.pow(yb-ya,2));
+        return  distance;
     }
 
 
@@ -90,6 +124,7 @@ public class Dao {
                     for(int i = 0;i<points.size();i++){
                         if(debut==points.get(i).getGeo_poi_id()){
                             arc.setGeo_arc_deb(points.get(i));
+
                         }
                     }
                     for(int i = 0;i<points.size();i++){
@@ -100,8 +135,17 @@ public class Dao {
 
                     double temps = cursor.getDouble(cursor.getColumnIndex(C.FieldARC.TEMPS));
                     arc.setGeo_arc_temps(temps);
-                    double distance = cursor.getDouble(cursor.getColumnIndex(C.FieldARC.DISTANCE));
-                    arc.setGeo_arc_distance(distance);
+
+                    //double distance = cursor.getDouble(cursor.getColumnIndex(C.FieldARC.DISTANCE));
+                    //arc.setGeo_arc_distance(distance);
+                    double xLatLamb = convertDegToLamb(arc.getGeo_arc_deb().getGeo_poi_latitude(),arc.getGeo_arc_deb().getGeo_poi_longitude()).get(0);
+                    double xLonLamb = convertDegToLamb(arc.getGeo_arc_deb().getGeo_poi_latitude(),arc.getGeo_arc_deb().getGeo_poi_longitude()).get(1);
+                    double yLatLamb = convertDegToLamb(arc.getGeo_arc_fin().getGeo_poi_latitude(),arc.getGeo_arc_fin().getGeo_poi_longitude()).get(0);
+                    double yLonLamb = convertDegToLamb(arc.getGeo_arc_fin().getGeo_poi_latitude(),arc.getGeo_arc_fin().getGeo_poi_longitude()).get(1);
+
+                    arc.setGeo_arc_distance(distancePoint(xLatLamb,xLonLamb,yLatLamb,yLonLamb));
+
+
                     int sens = cursor.getInt(cursor.getColumnIndex(C.FieldARC.SENS));
                     arc.setGeo_arc_sens(sens);
                     arcs.add(arc);

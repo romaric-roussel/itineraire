@@ -100,10 +100,6 @@ public class Djikstra {
         }
     }
 
-    /*
-     * This method returns the path from the source to the selected target and
-     * NULL if no path exists
-     */
     public LinkedList<GeoPoint> getPath(GeoPoint target) {
         LinkedList<GeoPoint> path = new LinkedList<GeoPoint>();
         GeoPoint step = target;

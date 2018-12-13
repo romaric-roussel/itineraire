@@ -105,30 +105,7 @@ public class MainActivity extends AppCompatActivity   {
 
 
     }
-    private static List<Double> convertDegToLamb(double lat,double lon){
-        List<Double> lamb = new ArrayList<>();
-        double n=0.7289686274;
-        double C=11745793.39;
-        double e=0.08248325676;
-        double Xs=600000;
-        double Ys=8199695.768;
 
-        double GAMMA0 =(3600*2)+(60*20)+14.025;
-        GAMMA0 = GAMMA0/(180*3600)*Math.PI;
-        double lati =lat/180*Math.PI;
-        double longi =lon/180*Math.PI;
-        double L=0.5* log((1+sin(lati))/(1-sin(lati)))-e/2*log((1+e*sin(lati))/(1-e*sin(lati)));
-        double R=C*Math.exp(-n*L);
-        double GAMMA=n*(longi-GAMMA0);
-
-        double Lx=Xs+(R*sin(GAMMA));
-        double  Ly=Ys-(R*cos(GAMMA));
-
-        lamb.add(Lx);
-        lamb.add(Ly);
-
-        return lamb;
-    }
 
 
     private  void DemandeDePermission(){
@@ -203,7 +180,7 @@ public class MainActivity extends AppCompatActivity   {
         if(path!= null){
             StringBuilder stringBuilder = new StringBuilder();
             for (GeoPoint point : path) {
-               stringBuilder.append(point.getGeo_poi_nom()).append("\n");
+               stringBuilder.append(point.getGeo_poi_nom()).append("=>");
 
             }
             tv.setText(stringBuilder);

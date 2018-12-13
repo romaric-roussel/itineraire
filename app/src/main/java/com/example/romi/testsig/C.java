@@ -8,7 +8,7 @@ public final class C {
 
     public static final class Database {
         public static final String NAME = "lp_iem_sig.sqlite";
-        public static final int VERSION = 3;
+        public static final int VERSION = 5;
 
     }
     public static final class Table {
