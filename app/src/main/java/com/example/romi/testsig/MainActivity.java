@@ -216,34 +216,14 @@ public class MainActivity extends AppCompatActivity   {
                     stringBuilder.append(path.get(i).getGeo_poi_nom()).append("(").append(path.get(i).getGeo_poi_partition()).append(")");
                 }else {
                     stringBuilder.append(path.get(i).getGeo_poi_nom()).append("(").append(path.get(i).getGeo_poi_partition()).append(")").append("=>");
-
                 }
-
             }
-
             tv.setText(stringBuilder);
-        }
-        if (path== null){
-            djikstra.execute((GeoPoint)sp_fin.getSelectedItem());
-            path = djikstra.getPath((GeoPoint)sp_deb.getSelectedItem());
-            if(path!=null){
-                Collections.reverse(path);
-                StringBuilder stringBuilder = new StringBuilder();
-                for (int i = 0;i<path.size();i++) {
-                    if(i==path.size()-1){
-                        stringBuilder.append(path.get(i).getGeo_poi_nom()).append("(").append(path.get(i).getGeo_poi_partition()).append(")");
-                    }else {
-                        stringBuilder.append(path.get(i).getGeo_poi_nom()).append("(").append(path.get(i).getGeo_poi_partition()).append(")").append("=>");
 
-                    }
-
-                }
-
-                tv.setText(stringBuilder);
             } else{
                 Snackbar.make(findViewById(android.R.id.content), "Aucun chemin", Snackbar.LENGTH_SHORT).show();}
         }
-    }
+
 
 
 
