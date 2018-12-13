@@ -69,6 +69,7 @@ public class Djikstra {
                     && !isSettled(arc.getGeo_arc_fin())) {
                 neighbors.add(arc.getGeo_arc_fin());
             }
+
         }
         return neighbors;
     }

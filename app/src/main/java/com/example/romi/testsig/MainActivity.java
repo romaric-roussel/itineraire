@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity   {
 
     private List<GeoPoint> pointList;
     private List<GeoArc> arcList;
+    private List<GeoArc> copyArcList;
     private LinkedList<GeoPoint> path;
 
     private Dao dao;
@@ -68,6 +69,14 @@ public class MainActivity extends AppCompatActivity   {
 
         pointList = dao.getAllPoint();
         arcList = dao.getAllArc();
+        List<GeoArc> arcReverseList = new ArrayList<>();
+        for (int i =0;i<arcList.size();i++){
+           GeoArc arc = arcList.get(i);
+           GeoArc arcReverse = new GeoArc(arc.getGeo_arc_id(), arc.getGeo_arc_fin(), arc.getGeo_arc_deb(), arc.getGeo_arc_temps(), arc.getGeo_arc_distance(), arc.getGeo_arc_sens());
+           arcReverseList.add(arcReverse);
+
+        }
+        arcList.addAll(arcReverseList);
 
 
 
@@ -237,9 +246,6 @@ public class MainActivity extends AppCompatActivity   {
     }
 
 
-    private void execLargeur(Graphe graphe){
-
-    }
 
 
     @Override
