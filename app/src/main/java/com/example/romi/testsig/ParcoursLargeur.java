@@ -28,11 +28,11 @@ public class ParcoursLargeur {
 
     }
 
-        public List<Integer> execute (GeoPoint s)
-        {
-            List<Integer> liste_parcouru = new ArrayList<>();
-            // Mark all the vertices as not visited(By default
-            // set as false)
+            public List<Integer> execute (GeoPoint s)
+            {
+                List<Integer> liste_parcouru = new ArrayList<>();
+                // Mark all the vertices as not visited(By default
+                // set as false)
             boolean visited[] = new boolean[points.size()];
 
             // Create a queue for BFS

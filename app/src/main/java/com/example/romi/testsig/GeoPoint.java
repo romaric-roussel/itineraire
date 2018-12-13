@@ -82,7 +82,7 @@ public class GeoPoint {
 
     @Override
     public String toString() {
-        return geo_poi_nom;
+        return geo_poi_nom + " ("+geo_poi_partition+")";
     }
 }
 

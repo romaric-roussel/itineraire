@@ -14,6 +14,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Printer;
 import android.view.View;
 import android.widget.AdapterView;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity   {
         sp_deb = findViewById(R.id.sp_depart);
         sp_fin = findViewById(R.id.sp_arrive);
         btn_recherche = findViewById(R.id.btn_recherche);
+        Button btn_largeur=findViewById(R.id.btn_largeur);
         tv = findViewById(R.id.textView);
 
 
@@ -96,13 +98,27 @@ public class MainActivity extends AppCompatActivity   {
            }
        });
 
+
         btn_recherche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 DemandeDePermission();
             }
         });
-
+        btn_largeur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Graphe graph = new Graphe(pointList, arcList);
+                ParcoursLargeur parcours= new ParcoursLargeur(graph);
+                List<Integer> test = parcours.execute(pointList.get(sp_deb.getSelectedItemPosition()));
+                StringBuilder stringBuilder = new StringBuilder();
+                for (Integer inte:test) {
+                    stringBuilder.append(inte).append("=>");
+                }
+                tv.setText(stringBuilder);
+            }
+        });
 
     }
 
@@ -126,6 +142,8 @@ public class MainActivity extends AppCompatActivity   {
         {
             Graphe graph = new Graphe(pointList, arcList);
             execDjisktra(graph);
+
+
 
             File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"export.kml");
             FileWriter fileWriter = null;
@@ -180,9 +198,10 @@ public class MainActivity extends AppCompatActivity   {
         if(path!= null){
             StringBuilder stringBuilder = new StringBuilder();
             for (GeoPoint point : path) {
-               stringBuilder.append(point.getGeo_poi_nom()).append("=>");
+               stringBuilder.append(point.getGeo_poi_nom()).append("(").append(point.getGeo_poi_partition()).append(")").append("=>");
 
             }
+
             tv.setText(stringBuilder);
         }
         if (path== null){
@@ -200,6 +219,13 @@ public class MainActivity extends AppCompatActivity   {
                 Snackbar.make(findViewById(android.R.id.content), "Aucun chemin", Snackbar.LENGTH_SHORT).show();}
         }
     }
+
+
+    private void execLargeur(Graphe graphe){
+
+    }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
     {
@@ -209,6 +235,8 @@ public class MainActivity extends AppCompatActivity   {
             {
                 Graphe graph = new Graphe(pointList, arcList);
                 execDjisktra(graph);
+
+
 
                 File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"export.kml");
                 FileWriter fileWriter = null;
