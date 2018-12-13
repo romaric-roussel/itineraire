@@ -31,28 +31,23 @@ public class ParcoursLargeur {
             public List<Integer> execute (GeoPoint s)
             {
                 List<Integer> liste_parcouru = new ArrayList<>();
-                // Mark all the vertices as not visited(By default
-                // set as false)
-            boolean visited[] = new boolean[points.size()];
-
-            // Create a queue for BFS
-            LinkedList<Integer> queue = new LinkedList<Integer>();
-
-            // Mark the current node as visited and enqueue it
-            visited[s.getGeo_poi_id()] = true;
-            queue.add(s.getGeo_poi_id());
-
-            while (queue.size() != 0) {
-                // Dequeue a vertex from queue and print it
-
-                int poll = queue.poll();
-
-                liste_parcouru.add(poll);
+                boolean visited[] = new boolean[points.size()];
 
 
-                // Get all adjacent vertices of the dequeued vertex s
-                // If a adjacent has not been visited, then mark it
-                // visited and enqueue it
+                LinkedList<Integer> queue = new LinkedList<Integer>();
+
+
+                visited[s.getGeo_poi_id()] = true;
+                queue.add(s.getGeo_poi_id());
+
+                while (queue.size() != 0) {
+
+                    int poll = queue.poll();
+
+                    liste_parcouru.add(poll);
+
+
+
                 Iterator<Integer> i = adj[poll].listIterator();
                 while (i.hasNext()) {
                     int n = i.next();

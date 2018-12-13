@@ -111,10 +111,15 @@ public class MainActivity extends AppCompatActivity   {
             public void onClick(View v) {
                 Graphe graph = new Graphe(pointList, arcList);
                 ParcoursLargeur parcours= new ParcoursLargeur(graph);
-                List<Integer> test = parcours.execute(pointList.get(sp_deb.getSelectedItemPosition()));
+                List<Integer> largeur = parcours.execute((GeoPoint)sp_deb.getSelectedItem());
                 StringBuilder stringBuilder = new StringBuilder();
-                for (Integer inte:test) {
-                    stringBuilder.append(inte).append("=>");
+                for (int i = 0;i<largeur.size();i++) {
+                    if(i==largeur.size()-1){
+                        stringBuilder.append(largeur.get(i));
+                    }else {
+                        stringBuilder.append(largeur.get(i)).append("=>");
+                    }
+
                 }
                 tv.setText(stringBuilder);
             }
@@ -193,27 +198,38 @@ public class MainActivity extends AppCompatActivity   {
 
     private void execDjisktra(Graphe graphe){
         Djikstra djikstra = new Djikstra(graphe);
-        djikstra.execute(pointList.get(sp_deb.getSelectedItemPosition()));
-        path = djikstra.getPath(pointList.get(sp_fin.getSelectedItemPosition()));
+        djikstra.execute((GeoPoint)sp_deb.getSelectedItem());
+        path = djikstra.getPath((GeoPoint)sp_fin.getSelectedItem());
         if(path!= null){
             StringBuilder stringBuilder = new StringBuilder();
-            for (GeoPoint point : path) {
-               stringBuilder.append(point.getGeo_poi_nom()).append("(").append(point.getGeo_poi_partition()).append(")").append("=>");
+            for (int i = 0;i<path.size();i++) {
+                if(i==path.size()-1){
+                    stringBuilder.append(path.get(i).getGeo_poi_nom()).append("(").append(path.get(i).getGeo_poi_partition()).append(")");
+                }else {
+                    stringBuilder.append(path.get(i).getGeo_poi_nom()).append("(").append(path.get(i).getGeo_poi_partition()).append(")").append("=>");
+
+                }
 
             }
 
             tv.setText(stringBuilder);
         }
         if (path== null){
-            djikstra.execute(pointList.get(sp_fin.getSelectedItemPosition()));
-            path = djikstra.getPath(pointList.get(sp_deb.getSelectedItemPosition()));
+            djikstra.execute((GeoPoint)sp_fin.getSelectedItem());
+            path = djikstra.getPath((GeoPoint)sp_deb.getSelectedItem());
             if(path!=null){
                 Collections.reverse(path);
                 StringBuilder stringBuilder = new StringBuilder();
-                for (GeoPoint point : path) {
-                    stringBuilder.append(point.getGeo_poi_nom()).append("\n");
+                for (int i = 0;i<path.size();i++) {
+                    if(i==path.size()-1){
+                        stringBuilder.append(path.get(i).getGeo_poi_nom()).append("(").append(path.get(i).getGeo_poi_partition()).append(")");
+                    }else {
+                        stringBuilder.append(path.get(i).getGeo_poi_nom()).append("(").append(path.get(i).getGeo_poi_partition()).append(")").append("=>");
+
+                    }
 
                 }
+
                 tv.setText(stringBuilder);
             } else{
                 Snackbar.make(findViewById(android.R.id.content), "Aucun chemin", Snackbar.LENGTH_SHORT).show();}
