@@ -227,10 +227,12 @@ public class MainActivity extends AppCompatActivity   {
             for (int i = 0;i<path.size();i++) {
                 if(i==path.size()-1){
                     stringBuilder.append(path.get(i).getGeo_poi_nom()).append("(").append(path.get(i).getGeo_poi_partition()).append(")");
+
                 }else {
-                    stringBuilder.append(path.get(i).getGeo_poi_nom()).append("(").append(path.get(i).getGeo_poi_partition()).append(")").append("=>");
+                    stringBuilder.append(path.get(i).getGeo_poi_nom()).append("(").append(path.get(i).getGeo_poi_partition()).append(")").append("=>").append("\n");
                 }
             }
+            stringBuilder.append("Distance total : ").append(djikstra.getDistance((GeoPoint)sp_fin.getSelectedItem())).append(" KM");
             tv.setText(stringBuilder);
 
             } else{

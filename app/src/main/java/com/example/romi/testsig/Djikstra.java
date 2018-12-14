@@ -117,4 +117,9 @@ public class Djikstra {
         Collections.reverse(path);
         return path;
     }
+
+    public Double getDistance(GeoPoint point){
+
+        return distance.get(point)/1000;
+    }
 }
