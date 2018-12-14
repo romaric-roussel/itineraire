@@ -172,10 +172,19 @@ public class MainActivity extends AppCompatActivity   {
                     fileWriter.write("<?xml version='1.0' encoding='UTF-8'?>\n");
                     fileWriter.write("<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n");
                     fileWriter.write("<Document>\n" + "<Folder>\n" + "<name>Arret de bus</name>\n");
+                    fileWriter.write("<Style id=\"placemark-red\">\n" +
+                            "        <IconStyle>\n" +
+                            "          <Icon>\n" +
+                            "            <href>https://static.thenounproject.com/png/120114-200.png</href>\n" +
+                            "          </Icon>\n" +
+                            "        </IconStyle>\n" +
+                            "      </Style>");
 
                     for (GeoPoint point : path) {
                         fileWriter.write("<Placemark>\n");
+                        fileWriter.write( "<styleUrl>#placemark-red</styleUrl>\n");
                         fileWriter.write("<name>" +point.getGeo_poi_nom()+ "</name>\n");
+                        fileWriter.write("<styleUrl>#placemark-red</styleUrl>\n");
                         fileWriter.write("<Point>\n" +
                                 "<coordinates>"+ point.getGeo_poi_longitude() +"," + point.getGeo_poi_latitude()
                                 +"</coordinates>\n" +
@@ -184,10 +193,14 @@ public class MainActivity extends AppCompatActivity   {
 
                     }
                     fileWriter.write( "<Placemark>\n");
+                    fileWriter.write( "<styleUrl>#placemark-red</styleUrl>\n");
+
                     fileWriter.write( "<name>Itineraire</name>\n" + "<LineString>\n" + "<coordinates>\n");
                     for (GeoPoint point : path) {
                         fileWriter.write(point.getGeo_poi_longitude() +"," + point.getGeo_poi_latitude()+"\n");
                     }
+
+                    fileWriter.write("<styleUrl>#placemark-red</styleUrl>\n");
                     fileWriter.write("</coordinates>\n" + "</LineString>\n"+"</Placemark>\n");
                     fileWriter.write("</Folder>\n" + "</Document>\n"+"</kml>");
                 }
